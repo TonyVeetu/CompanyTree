@@ -22,6 +22,7 @@ public class Company implements ICompanyService{
         return parent;
 
     }
+
     public Company getTopLevelParent(Company child){
         Company parent = child.getParent();
         Company children = null;
@@ -30,6 +31,14 @@ public class Company implements ICompanyService{
             parent = parent.getParent();
         }
         return children;
+    }
+
+    public Company getTopLevelParentRecursive(Company child){
+        Company parent = child.getParent();
+        if(this.getTopLevelParent(parent) != null)
+            return parent.getParent();
+        else
+            return null;
     }
 
     public long getEmployeeCount(){
@@ -58,12 +67,27 @@ public class Company implements ICompanyService{
             }
             else {
                 for (int i = 0; i < children.size(); i++) {
-                    System.out.println();
                     employCount += children.get(i).getEmployeeCount();
                 }
                 parents.clear();
                 parents.addAll(children);
                 children.clear();
+            }
+        }
+        return employCount;
+    }
+
+    public long getEmployeeCountForCompanyAndChildrenRecursive(Company company, List<Company> companies){
+        long employCount = 0;
+        employCount += company.getEmployeeCount();
+
+        if(company != null){
+            for (int i = 0; i < companies.size(); i++) {
+                if(companies.get(i).getParent() != null) {
+                    if ((companies.get(i).getParent()).equals(company)) {
+                        employCount += this.getEmployeeCountForCompanyAndChildrenRecursive(companies.get(i), companies);
+                    }
+                }
             }
         }
         return employCount;

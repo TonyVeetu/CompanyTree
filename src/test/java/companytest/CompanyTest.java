@@ -38,9 +38,22 @@ public class CompanyTest {
     }
 
     @Test
+    public void getSuperCompanyRecursiveTest(){
+        Assert.assertTrue("A".equals(c_ba.getTopLevelParentRecursive(c_ba).getName()));
+    }
+
+    @Test
     public void getEmployeeCountForCompanyAndChildrenTest(){
         Assert.assertTrue( 53 == a.getEmployeeCountForCompanyAndChildren(a, list));
         Assert.assertTrue( 23 == a.getEmployeeCountForCompanyAndChildren(c_ba, list));
         Assert.assertTrue( 2 == a.getEmployeeCountForCompanyAndChildren(e_da, list));
+    }
+
+    @Test
+    public void getEmployeeCountForCompanyAndChildrenRecursiveTest(){
+        Assert.assertTrue( 53 == a.getEmployeeCountForCompanyAndChildrenRecursive(a, list));
+        Assert.assertTrue( 23 == a.getEmployeeCountForCompanyAndChildrenRecursive(c_ba, list));
+        Assert.assertTrue( 2 == a.getEmployeeCountForCompanyAndChildrenRecursive(e_da, list));
+
     }
 }

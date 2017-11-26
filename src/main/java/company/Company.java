@@ -1,7 +1,5 @@
 package company;
 
-import javafx.scene.SnapshotParametersBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +46,6 @@ public class Company implements ICompanyService{
             ArrayList<Company> children = new ArrayList<Company>();
             for (int i = 0; i < companies.size(); i++) {
                 for(int j = 0; j < parents.size(); j++) {
-                    System.out.println("Parent is = " + parents.get(j).getName());
                     if(companies.get(i).getParent() != null) {
                         if ((companies.get(i).getParent()).equals(parents.get(j))) {
                             children.add(companies.get(i));
@@ -57,11 +54,9 @@ public class Company implements ICompanyService{
                 }
             }
             if(children.isEmpty()){
-                System.out.println("No children!");
                 break;
             }
             else {
-                System.out.println("Have children!");
                 for (int i = 0; i < children.size(); i++) {
                     System.out.println();
                     employCount += children.get(i).getEmployeeCount();

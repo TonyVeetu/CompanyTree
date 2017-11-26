@@ -1,6 +1,7 @@
 package companytest;
 
 import company.Company;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,15 +24,23 @@ public class CompanyTest {
         list.add(a); list.add(b_a); list.add(c_ba); list.add(d_a); list.add(e_da);
     }
 
+    /**             Example: E(e_da) = 2 => E - name, e_da - name of ref, 2 - count of employee!
+     *                   A = 5
+     *                 /       \
+     *         10 = B(b_a)   D(d_a) = 13
+     *             /           \
+     *   23 = C(c_ba)        E(e_da) = 2
+     *            */
+
     @Test
     public void getSuperCompanyTest(){
-        System.out.println("____Test_1_____");
-        System.out.println(c_ba.getTopLevelParent(c_ba).getName());
+        Assert.assertTrue("A".equals(c_ba.getTopLevelParent(c_ba).getName()));
     }
 
     @Test
     public void getEmployeeCountForCompanyAndChildrenTest(){
-        System.out.println("____Test_2_____");
-        System.out.println(a.getEmployeeCountForCompanyAndChildren(a, list));
+        Assert.assertTrue( 53 == a.getEmployeeCountForCompanyAndChildren(a, list));
+        Assert.assertTrue( 23 == a.getEmployeeCountForCompanyAndChildren(c_ba, list));
+        Assert.assertTrue( 2 == a.getEmployeeCountForCompanyAndChildren(e_da, list));
     }
 }
